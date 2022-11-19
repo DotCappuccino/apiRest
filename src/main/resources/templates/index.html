@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <link rel="shortcut icon" href="/images/icon.png">
+        <meta charset="UTF-8">
+        <title>Votação API</title>
+
+        <!-- CSS - LOCAL -->
+        <link rel="stylesheet" href="/css/main.css">
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <!-- POST -> ROTAS (O value do botão direciona a página) -->
+        <form method="post" action="/">
+            <div class="login">
+                <img class="imagem" src="/images/icon.png">
+                    <button type="submit" id="btnVotar"     name="btn" value="btnVotar" class="botaoprincipal btn btn-dark" style="margin-top: 8vh;">Votar</button>
+                    <button type="submit" id="btnConsultar" name="btn" value="btnConsultar" class="botaoprincipal btn btn-dark">Consultar Voto</button>
+                    <button type="submit" id="btnParcial"   name="btn" value="btnParcial" class="botaoprincipal btn btn-dark">Parcial dos votos</button>
+            </div>
+        </form>
+    </body>
+</html>

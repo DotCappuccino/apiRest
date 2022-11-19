@@ -1,0 +1,108 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="shortcut icon" href="/images/icon.png">
+    <meta charset='utf-8'>
+    <title>Votação API</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- CSS - LOCAL -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!-- COLOCA MASCARA CPF ENQUANTO DIGITA -->
+    <script>
+        function mascara(i){
+            var v = i.value;
+
+            // impede entrar outro caractere que não seja número
+            if(isNaN(v[v.length-1])){
+                i.value = v.substring(0, v.length-1);
+                return;
+            }
+
+            i.setAttribute("maxlength", "14");
+            if (v.length == 3 || v.length == 7) i.value += ".";
+            if (v.length == 11) i.value += "-";
+
+        }
+        function carregaCandidatos(){
+            document.getElementById("carregaCandidatos").submit();
+        }
+
+    </script>
+
+</head>
+
+<body >
+
+
+    <div class="background">
+        <div class="login">
+            <label style="font-size:3vh; font-family:Arial, Helvetica, sans-serif; margin-bot: 15px;">Digite seus dados</label>
+
+            <form method="post" action="/votacao" >
+                <div class="form-group">
+                    <!-- INPUTS - mascara(this) -> COLOCA MASCARA CPF -->
+                    <input type="text"
+                           name="CpfEleitor"
+                           class="textbox form-control"
+                           id="txtCpfE"
+                           placeholder="CPF Eleitor"
+                           oninput="mascara(this)"
+                           maxlength="11">
+
+                    <input type="text"
+                           name="NomeEleitor"
+                           class="textbox form-control"
+                           id="txtNomeE"
+                           placeholder="Nome Eleitor">
+
+                    <!-- SELECT COM TODOS OS CANDIDATOS -->
+                    <div>
+                        <select style="font-size: 2.5vh; margin-top: 3%; width: 100%; height: 5vh; border-radius: 8px;">
+                            <option selected="selected">Selecione o candidato</option>
+                            <option name="IdCandidato"
+                                    th:each  = "candidato : ${candidatos}"
+                                    th:text = "${candidato.NomeCandidato}"
+                                    th:value = "${candidato}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" name="btn" value="Inserir" class="botaoconfirmar btn btn-success">VOTAR</button>
+                <button type="submit" name="btn" value="Voltar" class="botaovoltar btn btn-warning">VOLTAR</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+<!--
+<table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">NomeCandidato</th>
+                <th scope="col">Partido</th>
+                <th scope="col">Uf</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="candidato: ${candidatos}">
+            <td data-th-text="${candidato.IdCandidato}"></td>
+            <td data-th-text="${candidato.NomeCandidato}"></td>
+            <td data-th-text="${candidato.Partido}"></td>
+            <td data-th-text="${candidato.Uf}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+<input type="text" name="CodC"  class="textbox form-control" id="txtNumeroE" placeholder="Numero do candidato">
+<select style="width: 100%;">
+    <option value=""></option>
+    <option value="1">Teste</option>
+</select>
+
+-->
