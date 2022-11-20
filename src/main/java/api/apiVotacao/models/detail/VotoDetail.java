@@ -7,12 +7,6 @@ public class VotoDetail {
     public Integer IdCandidato;
     public Integer IdEleitor;
 
-    public VotoDetail(String NomeEleitor, String CpfEleitor,Integer IdCandidato, Integer IdEleitor){
-        this.NomeEleitor = NomeEleitor;
-        this.CpfEleitor  = CpfEleitor;
-        this.IdCandidato = IdCandidato;
-        this.IdEleitor   = IdEleitor;
-    }
 
     public String getNomeEleitor() {
         return NomeEleitor;

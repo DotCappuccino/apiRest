@@ -86,8 +86,33 @@ public class ControllerWeb {
     }
 
     @GetMapping(path = "/parcial")
-    public String parcialGet(){
-        return "Parcial_Votos";
+    public ModelAndView parcialGet() throws JsonProcessingException {
+        //FAZ COM QUE O MAPPER POSSA SE TORNAR UM ARRAY
+        MAPPER.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+
+        /*
+         * DADOS DA CONEXÃO
+         * */
+        String Uri = "http://localhost:8080/api/todosVotos";
+
+        //NOVA REQUISIÇÃO
+        RestTemplate restTemplate = new RestTemplate();
+        String response = restTemplate.getForObject(Uri, String.class);
+
+        List<VotoDetail> votoModel = MAPPER.readValue(response,MAPPER.getTypeFactory().constructCollectionType(List.class, VotoDetail.class));
+
+        ModelAndView mv = new ModelAndView("Parcial_Votos");
+        mv.addObject("votos", votoModel);
+
+        /* VALIDAÇÃO RETORNOS ->PERCORRE A LISTA E PRINTA OS RESULTADOS
+        for(int i = 0; i < candidatos.size(); i++){
+            System.out.println("\nIdCandidato: " + candidatosModel.get(i).IdCandidato);
+            System.out.println("\nNomeCandidato: " + candidatosModel.get(i).NomeCandidato);
+            System.out.println("\nPartidoCandidato: " + candidatosModel.get(i).Partido);
+            System.out.println("\nUfCandidato: " + candidatosModel.get(i).Uf);
+        }*/
+
+        return mv;
     }
 
     /*
@@ -111,7 +136,7 @@ public class ControllerWeb {
     public String votacaoPost(String btn, VotoDetail voto) throws MinhaException {
 
         ObjectMapper mapper = new ObjectMapper();
-        String retorno = "redirect:/votacao";
+        String retorno = "redirect:/";
 
         if(btn.equalsIgnoreCase("Inserir")){
 
@@ -132,10 +157,10 @@ public class ControllerWeb {
                 throw new RuntimeException(e);
             }
 
-            System.out.println("getNomeEleitor: " + voto.getNomeEleitor());
-            System.out.println("getCpfEleitor: " + voto.getCpfEleitor());
-            System.out.println("getIdCandidato: " + voto.getIdCandidato());
-            System.out.println("getIdEleitor: " + Integer.toString(voto.getIdEleitor()));
+            //System.out.println("getNomeEleitor: " + voto.getNomeEleitor());
+            //System.out.println("getCpfEleitor: " + voto.getCpfEleitor());
+            //System.out.println("getIdCandidato: " + voto.getIdCandidato());
+            //System.out.println("getIdEleitor: " + Integer.toString(voto.getIdEleitor()));
 
 
             sendPost("http://localhost:8080/api/votar/post", votoJson);
@@ -145,6 +170,16 @@ public class ControllerWeb {
 
 
         System.out.println("\nRetorno(/votacao): " + retorno);
+
+        return retorno;
+    }
+
+    @PostMapping(path = "/parcial")
+    public String votacaoPost(String btn){
+
+        String retorno = "redirect:/";
+
+        retorno += btn.equalsIgnoreCase("Recarregar") ? "parcial" : "";
 
         return retorno;
     }

@@ -28,6 +28,11 @@ public class VotacaoController {
         return candidatoRepository.findAll();
     }
 
+    @GetMapping(path = "api/todosVotos")
+    public Iterable<VotoModel> todosVotos(){
+        return votoRepository.findAll();
+    }
+
     @PostMapping(path = "api/votar/post")
     public String votar(@RequestBody VotoDetail voto){
 
