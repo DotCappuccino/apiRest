@@ -4,17 +4,24 @@ import api.apiVotacao.models.adapter.NullAdapter;
 
 import javax.persistence.*;
 
+@Table(name = "Votos")
 @Entity(name = "Votos")
-public class VotoModel implements NullAdapter {
+public class VotoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer IdVoto;
 
-    @Column(nullable = false)
+
+    @ManyToOne(targetEntity = CandidatoModel.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "IdCandidato", nullable = false)
     public Integer IdCandidato;
 
-    @Column(nullable = false)
+    public String NomeCandidato;
+
+    @MapsId
+    @OneToOne(targetEntity = EleitorModel.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "IdEleitor", nullable = false)
     public Integer IdEleitor;
 
     public static VotoModel builder(){
@@ -29,13 +36,5 @@ public class VotoModel implements NullAdapter {
         this.IdEleitor = idEleitor;
     }
 
-    @Override
-    public String getRegStr() {
-        return null;
-    }
 
-    @Override
-    public Integer getRegInt() {
-        return null;
-    }
 }

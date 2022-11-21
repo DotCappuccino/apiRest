@@ -27,10 +27,8 @@
                 </thead>
                 <tbody>
                     <tr data-th-each="voto: ${votos}">
-                        <td data-th-text="${voto.NomeEleitor}"></td>
-                        <td data-th-text="${voto.CpfEleitor}"></td>
-                        <td data-th-text="${voto.IdCandidato}"></td>
-                        <td data-th-text="${voto.IdEleitor}"></td>
+                        <td data-th-text="${voto.NomeCandidato}"></td>
+                        <td data-th-text="${voto.Quantidade}"></td>
                     </tr>
                 </tbody>
             </table>

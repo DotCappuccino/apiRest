@@ -86,33 +86,9 @@ public class ControllerWeb {
     }
 
     @GetMapping(path = "/parcial")
-    public ModelAndView parcialGet() throws JsonProcessingException {
-        //FAZ COM QUE O MAPPER POSSA SE TORNAR UM ARRAY
-        MAPPER.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+    public String parcialGet() {
 
-        /*
-         * DADOS DA CONEXÃO
-         * */
-        String Uri = "http://localhost:8080/api/todosVotos";
-
-        //NOVA REQUISIÇÃO
-        RestTemplate restTemplate = new RestTemplate();
-        String response = restTemplate.getForObject(Uri, String.class);
-
-        List<VotoDetail> votoModel = MAPPER.readValue(response,MAPPER.getTypeFactory().constructCollectionType(List.class, VotoDetail.class));
-
-        ModelAndView mv = new ModelAndView("Parcial_Votos");
-        mv.addObject("votos", votoModel);
-
-        /* VALIDAÇÃO RETORNOS ->PERCORRE A LISTA E PRINTA OS RESULTADOS
-        for(int i = 0; i < candidatos.size(); i++){
-            System.out.println("\nIdCandidato: " + candidatosModel.get(i).IdCandidato);
-            System.out.println("\nNomeCandidato: " + candidatosModel.get(i).NomeCandidato);
-            System.out.println("\nPartidoCandidato: " + candidatosModel.get(i).Partido);
-            System.out.println("\nUfCandidato: " + candidatosModel.get(i).Uf);
-        }*/
-
-        return mv;
+        return "Parcial_Votos";
     }
 
     /*
