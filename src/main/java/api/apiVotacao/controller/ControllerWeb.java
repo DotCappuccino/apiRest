@@ -86,9 +86,26 @@ public class ControllerWeb {
     }
 
     @GetMapping(path = "/parcial")
-    public String parcialGet() {
+    public ModelAndView parcialGet() throws JsonProcessingException {
+        //FAZ COM QUE O MAPPER POSSA SE TORNAR UM ARRAY
+        MAPPER.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
-        return "Parcial_Votos";
+        /*
+         * DADOS DA CONEXÃO
+         * */
+        String Uri = "http://localhost:8080/api/todosVotos";
+        String msg = "";
+
+        //NOVA REQUISIÇÃO
+        RestTemplate restTemplate = new RestTemplate();
+        String response = restTemplate.getForObject(Uri, String.class);
+
+        List<Map<String, String>> votos = MAPPER.readValue(response,MAPPER.getTypeFactory().constructCollectionType(List.class, Map.class));
+
+        ModelAndView mv = new ModelAndView("Parcial_Votos");
+        mv.addObject("votos", votos);
+
+        return mv;
     }
 
     /*

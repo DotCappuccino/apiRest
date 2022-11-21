@@ -19,10 +19,8 @@
             <table style="margin-top: 5vh;" class="table table-striped table-dark">
                 <thead>
                     <tr>
-                        <th scope="col">NomeEleitor</th>
-                        <th scope="col">CpfEleitor</th>
-                        <th scope="col">IdCandidato</th>
-                        <th scope="col">IdEleitor</th>
+                        <th scope="col">NomeCandidato</th>
+                        <th scope="col">Quantidade</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,9 +30,11 @@
                     </tr>
                 </tbody>
             </table>
-            <form action="/votacao" method="post">
-                <button type="submit" name="btn" value="Recarregar" style="margin-top: 5vh; width: 20vh; font-size: 2.5vh; position: relative;" class="botaoconfirmar btn btn-primary">ATUALIZAR</button>
-                <button type="submit" name="btn" value="Voltar"     style="margin-top: 1vh; width: 20vh; font-size: 2.5vh;" class="botaovoltar btn btn-warning">VOLTAR</button>
+            <form style="align-items: center;" action="/votacao" method="post">
+                <div style="align-items: center; height: 70%; width: 400px;margin-top: 5%; margin-left: 25%; border-radius: 20px;">
+                    <button type="submit" name="btn" value="Recarregar" style="margin-top: 5vh; width: 30vh; font-size: 2.5vh; position: relative;" class="botaoconfirmar btn btn-primary">ATUALIZAR</button>
+                    <button type="submit" name="btn" value="Voltar"     style="margin-top: 1vh; width: 30vh; font-size: 2.5vh;" class="botaovoltar btn btn-warning">VOLTAR</button>
+                </div>
             </form>
        </div>
     </div>
