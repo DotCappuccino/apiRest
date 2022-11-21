@@ -27,25 +27,15 @@ public class ControllerWeb {
     private ObjectMapper MAPPER = new ObjectMapper();
 
     /*
-    * path: "/" -> Raiz ( localhost:8080/ )
-    * Aponta -> index.html
-    *
-    * Considerações:
-    * 1° GetMapping -> Acessar pagina por fora (Direto pelo http).
-    * 2° PostMapping -> Acessar por dentro da aplicação.
-    * 3°
-    *
-    * */
-    /*
-    * ROTAS
-    * */
+     * ROTAS
+     * */
     @GetMapping(path = "/")
-    public String indexPrimario(){
+    public String indexPrimario() {
         return "index";
     }
 
     @GetMapping(path = "/index")
-    public String indexSecundario(){
+    public String indexSecundario() {
         return "index";
     }
 
@@ -58,30 +48,21 @@ public class ControllerWeb {
          * DADOS DA CONEXÃO
          * */
         String Uri = "http://localhost:8080/api/todosCandidatos";
-        String msg = "";
 
         //NOVA REQUISIÇÃO
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(Uri, String.class);
 
-        List<CandidatosDetail> candidatosModel = MAPPER.readValue(response,MAPPER.getTypeFactory().constructCollectionType(List.class, CandidatosDetail.class));
+        List<CandidatosDetail> candidatosModel = MAPPER.readValue(response, MAPPER.getTypeFactory().constructCollectionType(List.class, CandidatosDetail.class));
 
         ModelAndView mv = new ModelAndView("votacao");
         mv.addObject("candidatos", candidatosModel);
-
-        /* VALIDAÇÃO RETORNOS ->PERCORRE A LISTA E PRINTA OS RESULTADOS
-        for(int i = 0; i < candidatos.size(); i++){
-            System.out.println("\nIdCandidato: " + candidatosModel.get(i).IdCandidato);
-            System.out.println("\nNomeCandidato: " + candidatosModel.get(i).NomeCandidato);
-            System.out.println("\nPartidoCandidato: " + candidatosModel.get(i).Partido);
-            System.out.println("\nUfCandidato: " + candidatosModel.get(i).Uf);
-        }*/
 
         return mv;
     }
 
     @GetMapping(path = "/consultar")
-    public String consultarGet(){
+    public String consultarGet() {
         return "consultar";
     }
 
@@ -100,7 +81,7 @@ public class ControllerWeb {
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(Uri, String.class);
 
-        List<Map<String, String>> votos = MAPPER.readValue(response,MAPPER.getTypeFactory().constructCollectionType(List.class, Map.class));
+        List<Map<String, String>> votos = MAPPER.readValue(response, MAPPER.getTypeFactory().constructCollectionType(List.class, Map.class));
 
         ModelAndView mv = new ModelAndView("Parcial_Votos");
         mv.addObject("votos", votos);
@@ -109,16 +90,16 @@ public class ControllerWeb {
     }
 
     /*
-    * REDIRECTS
-    * */
+     * REDIRECTS
+     * */
     @PostMapping(path = "/")
-    public String indexPost(String btn){
+    public String indexPost(String btn) {
 
         String retorno = "redirect:/";
 
-        if(btn.equalsIgnoreCase("btnVotar"))        retorno += "votacao";
-        if(btn.equalsIgnoreCase("btnConsultar"))    retorno += "consultar";
-        if(btn.equalsIgnoreCase("btnParcial"))      retorno += "parcial";
+        if (btn.equalsIgnoreCase("btnVotar")) retorno += "votacao";
+        if (btn.equalsIgnoreCase("btnConsultar")) retorno += "consultar";
+        if (btn.equalsIgnoreCase("btnParcial")) retorno += "parcial";
 
         System.out.println("\nRetorno(/): " + retorno);
 
@@ -131,17 +112,17 @@ public class ControllerWeb {
         ObjectMapper mapper = new ObjectMapper();
         String retorno = "redirect:/";
 
-        if(btn.equalsIgnoreCase("Inserir")){
+        if (btn.equalsIgnoreCase("Inserir")) {
 
             Map<String, String> json = new HashMap<String, String>();
             String votoJson = "";
 
             json.put("NomeEleitor", voto.getNomeEleitor());
-            json.put("CpfEleitor" , voto.getCpfEleitor());
+            json.put("CpfEleitor", voto.getCpfEleitor());
             json.put("IdCandidato", "2");
-            json.put("IdEleitor"  , "1");
+            json.put("IdEleitor", "1");
 
-            try{
+            try {
                 votoJson = mapper.writeValueAsString(json);
 
                 // Print JSON output
@@ -168,7 +149,7 @@ public class ControllerWeb {
     }
 
     @PostMapping(path = "/parcial")
-    public String votacaoPost(String btn){
+    public String votacaoPost(String btn) {
 
         String retorno = "redirect:/";
 
@@ -177,9 +158,19 @@ public class ControllerWeb {
         return retorno;
     }
 
+    @PostMapping(path = "/consultar")
+    public String consultarPost(String btn) {
+
+        String retorno = "redirect:/";
+
+        retorno += btn.equalsIgnoreCase("Consultar") ? "consultar" : "";
+
+        return retorno;
+    }
+
     public String sendPost(String url, String json) throws MinhaException {
 
-        try{
+        try {
 
             HttpURLConnection request = (HttpURLConnection) new URL(url).openConnection();
 
@@ -197,7 +188,7 @@ public class ControllerWeb {
                 request.connect();
 
                 // Escreve o objeto JSON usando o OutputStream
-                try(OutputStream outputStream = request.getOutputStream()){
+                try (OutputStream outputStream = request.getOutputStream()) {
                     outputStream.write(json.getBytes("UTF-8"));
                 }
 
@@ -206,11 +197,11 @@ public class ControllerWeb {
 
                 return readResponse(request);
 
-            }finally {
+            } finally {
                 request.disconnect();
             }
 
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             throw new MinhaException(ex);
         }
 

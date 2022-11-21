@@ -6,12 +6,17 @@ import api.apiVotacao.repository.CandidatoRepository;
 import api.apiVotacao.repository.EleitorRepository;
 import api.apiVotacao.repository.VotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class VotacaoController {
@@ -29,25 +34,21 @@ public class VotacaoController {
     private EleitorRepository eleitorRepository;
 
     @GetMapping(path = "api/todosCandidatos")
-    public Iterable<CandidatoModel> todosCandidatos(){
+    public Iterable<CandidatoModel> todosCandidatos() {
         return candidatoRepository.findAll();
     }
 
     @GetMapping(path = "api/todosVotos")
-    public List<Map<String, String>> todosVotos(){
+    public List<Map<String, String>> todosVotos() {
 
         CandidatoModel candidatoModel;
 
         System.out.println("Akioh 1");
         List<Object[]> query = entityManager.createQuery("SELECT C.NomeCandidato, COUNT(C.NomeCandidato) AS Quantidade " +
-                                                              "FROM Votos V " +
-                                                             "INNER JOIN FETCH Candidatos C ON C.IdCandidato = V.IdCandidato " +
-                                                             "GROUP BY C.NomeCandidato").getResultList();
+                "FROM Votos V " +
+                "INNER JOIN FETCH Candidatos C ON C.IdCandidato = V.IdCandidato " +
+                "GROUP BY C.NomeCandidato").getResultList();
 
-//            System.out.println("IdVoto:  " + var[0]);
-//            candidatoModel = (CandidatoModel) var[1];
-//            System.out.println("IdCandidato:  "   + candidatoModel.IdCandidato.toString());
-//        List<String> result = new ArrayList<>();
         List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 
 
@@ -69,7 +70,7 @@ public class VotacaoController {
     }
 
     @PostMapping(path = "api/votar/post")
-    public String votar(@RequestBody VotoDetail voto){
+    public String votar(@RequestBody VotoDetail voto) {
 
         EleitorModel eleitorModel = EleitorModelBuilder.builder()
                 .NomeEleitor(voto.getNomeEleitor())

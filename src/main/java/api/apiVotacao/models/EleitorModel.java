@@ -1,11 +1,9 @@
 package api.apiVotacao.models;
 
-import api.apiVotacao.models.adapter.NullAdapter;
-
 import javax.persistence.*;
 
 @Entity(name = "Eleitores")
-public class EleitorModel implements NullAdapter {
+public class EleitorModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,28 +15,19 @@ public class EleitorModel implements NullAdapter {
     @Column(nullable = false, length = 14)
     public String CpfEleitor;
 
-    protected EleitorModel(){
+    protected EleitorModel() {
     }
 
-    public static EleitorModel builder(){
+    public static EleitorModel builder() {
         return new EleitorModel();
     }
 
-    protected void setNomeEleitor(String nomeEleitor){
+    protected void setNomeEleitor(String nomeEleitor) {
         this.NomeEleitor = nomeEleitor;
     }
 
-    protected void setCpfEleitor(String cpfEleitor){
+    protected void setCpfEleitor(String cpfEleitor) {
         this.CpfEleitor = cpfEleitor;
     }
 
-    @Override
-    public String getRegStr() {
-        return null;
-    }
-
-    @Override
-    public Integer getRegInt() {
-        return null;
-    }
 }

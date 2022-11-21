@@ -1,7 +1,5 @@
 package api.apiVotacao.models;
 
-import api.apiVotacao.models.adapter.NullAdapter;
-
 import javax.persistence.*;
 
 @Table(name = "Votos")
@@ -24,15 +22,15 @@ public class VotoModel {
     @JoinColumn(name = "IdEleitor", nullable = false)
     public Integer IdEleitor;
 
-    public static VotoModel builder(){
+    public static VotoModel builder() {
         return new VotoModel();
     }
 
-    protected void setIdCandidato(Integer idCandidato){
+    protected void setIdCandidato(Integer idCandidato) {
         this.IdCandidato = idCandidato;
     }
 
-    protected void setIdEleitor(Integer idEleitor){
+    protected void setIdEleitor(Integer idEleitor) {
         this.IdEleitor = idEleitor;
     }
 

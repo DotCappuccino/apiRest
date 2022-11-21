@@ -28,7 +28,9 @@ public class Controller {
      * VERIFICA SE A APLICAÇÃO ESTÁ ATIVA
      * */
     @GetMapping(path = "/api/status")
-    public String validaConexao(){return "API online !!";}
+    public String validaConexao() {
+        return "API online !!";
+    }
 
     /*
      * VALIDA O TAMANHO DO CPF E RETORNA TRUE OU FALSE
@@ -41,7 +43,7 @@ public class Controller {
         return cpfTamanho == 11 ? true : false;
     }
 
-    public String pegarNumerosCpf(String cpf){
+    public String pegarNumerosCpf(String cpf) {
         //REMOVE A MASCARA DO CPF
         String cpfNumeros = cpf.replaceAll("[\\.-]", "");
 
@@ -65,7 +67,7 @@ public class Controller {
         List<DeputadosDetail> deputadosModel = MAPPER.readValue(response,
                 MAPPER.getTypeFactory().constructCollectionType(List.class, DeputadosDetail.class));
 
-        for(int i = 1; i <= deputadosModel.size(); i++){
+        for (int i = 1; i <= deputadosModel.size(); i++) {
             //CRIANDO NOVO CANDIDATO
             CandidatoModel candidatoModel = CandidatoModelBuilder.builder()
                     .NomeCandidato(deputadosModel.get(i).nome)
@@ -80,16 +82,16 @@ public class Controller {
     }
 
     //ADAPTER PARA VALIDAR CAMPOS NULOS
-    private static class NullProcessStr{
+    private static class NullProcessStr {
 
-        Boolean validaNullStr(NullAdapter adapter){
+        Boolean validaNullStr(NullAdapter adapter) {
             return Objects.isNull(adapter.getRegStr()) ? true : false;
         }
-        Boolean validaNullInt(NullAdapter adapter){
+
+        Boolean validaNullInt(NullAdapter adapter) {
             return Objects.isNull(adapter.getRegInt()) ? true : false;
         }
     }
-
 
 
 }

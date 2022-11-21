@@ -1,7 +1,5 @@
 package api.apiVotacao.models;
 
-import api.apiVotacao.models.adapter.NullAdapter;
-
 import javax.persistence.*;
 
 @Table(name = "Candidatos")
@@ -22,22 +20,22 @@ public class CandidatoModel {
     @Column(name = "Uf", nullable = false, length = 3)
     public String Uf;
 
-    protected CandidatoModel(){
+    protected CandidatoModel() {
     }
 
-    public static CandidatoModel builder(){
+    public static CandidatoModel builder() {
         return new CandidatoModel();
     }
 
-    protected void setNomeCandidato(String nomeCandidato){
+    protected void setNomeCandidato(String nomeCandidato) {
         this.NomeCandidato = nomeCandidato;
     }
 
-    protected void setPartido(String partido){
+    protected void setPartido(String partido) {
         this.Partido = partido;
     }
 
-    protected void setUf(String uf){
+    protected void setUf(String uf) {
         this.Uf = uf;
     }
 

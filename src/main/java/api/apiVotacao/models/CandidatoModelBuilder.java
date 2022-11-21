@@ -4,30 +4,30 @@ public class CandidatoModelBuilder {
 
     private CandidatoModel candidatoModel;
 
-    public CandidatoModelBuilder(){
+    public CandidatoModelBuilder() {
         candidatoModel = new CandidatoModel();
     }
 
-    public static CandidatoModelBuilder builder(){
+    public static CandidatoModelBuilder builder() {
         return new CandidatoModelBuilder();
     }
 
-    public CandidatoModelBuilder NomeCandidato(String nomeCandidato){
+    public CandidatoModelBuilder NomeCandidato(String nomeCandidato) {
         this.candidatoModel.setNomeCandidato(nomeCandidato);
         return this;
     }
 
-    public CandidatoModelBuilder Partido(String partido){
+    public CandidatoModelBuilder Partido(String partido) {
         this.candidatoModel.setPartido(partido);
         return this;
     }
 
-    public CandidatoModelBuilder Uf(String uf){
+    public CandidatoModelBuilder Uf(String uf) {
         this.candidatoModel.setUf(uf);
         return this;
     }
 
-    public CandidatoModel build(){
+    public CandidatoModel build() {
         return this.candidatoModel;
     }
 
