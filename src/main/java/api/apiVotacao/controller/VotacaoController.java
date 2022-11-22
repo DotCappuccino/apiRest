@@ -41,9 +41,6 @@ public class VotacaoController {
     @GetMapping(path = "api/todosVotos")
     public List<Map<String, String>> todosVotos() {
 
-        CandidatoModel candidatoModel;
-
-        System.out.println("Akioh 1");
         List<Object[]> query = entityManager.createQuery("SELECT C.NomeCandidato, COUNT(C.NomeCandidato) AS Quantidade " +
                 "FROM Votos V " +
                 "INNER JOIN FETCH Candidatos C ON C.IdCandidato = V.IdCandidato " +
@@ -76,12 +73,22 @@ public class VotacaoController {
                 .NomeEleitor(voto.getNomeEleitor())
                 .CpfEleitor(voto.getCpfEleitor())
                 .build();
+
         eleitorRepository.save(eleitorModel);
 
-        VotoModel votoModel = VotoModelBuilder.builder()
-                .IdCandidato(voto.getIdCandidato())
-                .IdEleitor(voto.getIdEleitor())
-                .build();
+        Object id = entityManager.createQuery("SELECT MAX(IdEleitor) AS IdEleitor " +
+                                                   "FROM Eleitores V ").getSingleResult();
+
+        System.out.println("id: " + id.toString() + " class: " + id.getClass());
+
+
+        VotoModel votoModel = new VotoModel();
+        votoModel.IdCandidato = voto.getIdCandidato();
+        votoModel.IdEleitor = (Integer) id;
+//        VotoModel votoModel = VotoModelBuilder.builder()
+//                .IdCandidato(voto.getIdCandidato())
+//                .IdEleitor((Integer) id)
+//                .build();
         votoRepository.save(votoModel);
 
         return "VOTO REALIZADO COM SUCESSO !";

@@ -5,7 +5,6 @@ public class VotoDetail {
     public String NomeEleitor;
     public String CpfEleitor;
     public Integer IdCandidato;
-    public Integer IdEleitor;
 
 
     public String getNomeEleitor() {
@@ -32,11 +31,4 @@ public class VotoDetail {
         IdCandidato = idCandidato;
     }
 
-    public Integer getIdEleitor() {
-        return IdEleitor;
-    }
-
-    public void setIdEleitor(Integer idEleitor) {
-        IdEleitor = idEleitor;
-    }
 }

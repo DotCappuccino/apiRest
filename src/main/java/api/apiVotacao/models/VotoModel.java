@@ -10,16 +10,15 @@ public class VotoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer IdVoto;
 
-
-    @ManyToOne(targetEntity = CandidatoModel.class, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = CandidatoModel.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "IdCandidato", nullable = false)
     public Integer IdCandidato;
 
-    public String NomeCandidato;
+//    public String NomeCandidato;
 
     @MapsId
-    @OneToOne(targetEntity = EleitorModel.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "IdEleitor", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, targetEntity = EleitorModel.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "IdEleitor", nullable = false, referencedColumnName = "id")
     public Integer IdEleitor;
 
     public static VotoModel builder() {

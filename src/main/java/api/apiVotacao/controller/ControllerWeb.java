@@ -119,8 +119,8 @@ public class ControllerWeb {
 
             json.put("NomeEleitor", voto.getNomeEleitor());
             json.put("CpfEleitor", voto.getCpfEleitor());
-            json.put("IdCandidato", "2");
-            json.put("IdEleitor", "1");
+            json.put("IdCandidato", "1");
+            //json.put("IdEleitor", "1");
 
             try {
                 votoJson = mapper.writeValueAsString(json);

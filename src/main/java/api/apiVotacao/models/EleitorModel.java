@@ -2,10 +2,12 @@ package api.apiVotacao.models;
 
 import javax.persistence.*;
 
+@Table(name = "Eleitores")
 @Entity(name = "Eleitores")
 public class EleitorModel {
 
     @Id
+    @JoinColumn(name = "IdEleitor")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer IdEleitor;
 
@@ -30,4 +32,15 @@ public class EleitorModel {
         this.CpfEleitor = cpfEleitor;
     }
 
+    public Integer getIdEleitor() {
+        return IdEleitor;
+    }
+
+    public String getNomeEleitor() {
+        return NomeEleitor;
+    }
+
+    public String getCpfEleitor() {
+        return CpfEleitor;
+    }
 }
