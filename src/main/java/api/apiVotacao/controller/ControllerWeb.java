@@ -107,7 +107,7 @@ public class ControllerWeb {
     }
 
     @PostMapping(path = "/votacao")
-    public String votacaoPost(String btn, VotoDetail voto, String CodCandidato) throws MinhaException {
+    public String votacaoPost(String btn, VotoDetail voto) throws MinhaException {
 
         ObjectMapper mapper = new ObjectMapper();
         String retorno = "redirect:/";
@@ -117,25 +117,17 @@ public class ControllerWeb {
             Map<String, String> json = new HashMap<String, String>();
             String votoJson = "";
 
-            System.out.println(">" + voto);
-
             json.put("NomeEleitor", voto.getNomeEleitor());
             json.put("CpfEleitor", voto.getCpfEleitor());
             json.put("IdCandidato", voto.getIdCandidato());
 
             try {
                 votoJson = mapper.writeValueAsString(json);
-
-                // Print JSON output
-                System.out.println(votoJson);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
-
-            //sendPost("http://localhost:8080/api/votar/post", votoJson);
-
+            sendPost("http://localhost:8080/api/votar/post", votoJson);
         }
-
         return retorno;
     }
 

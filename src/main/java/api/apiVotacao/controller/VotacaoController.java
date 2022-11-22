@@ -80,8 +80,6 @@ public class VotacaoController {
         Object id = entityManager.createQuery("SELECT MAX(IdEleitor) AS IdEleitor " +
                                                    "FROM Eleitores V ").getSingleResult();
 
-        System.out.println("id: " + id.toString() + " class: " + id.getClass());
-
         String query = "INSERT INTO Votos (id_Candidato, id_eleitor) VALUES(?, ?)";
 
         entityManager.createNativeQuery(query)
