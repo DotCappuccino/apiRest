@@ -136,7 +136,7 @@ public class ControllerWeb {
 
         String retorno = "redirect:/";
 
-        retorno += btn.equalsIgnoreCase("Recarregar") ? "parcial" : "";
+        retorno += btn.equalsIgnoreCase("Voltar") ? "" : "parcial";
 
         return retorno;
     }
