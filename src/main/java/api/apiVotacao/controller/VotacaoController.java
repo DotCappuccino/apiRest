@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,7 @@ public class VotacaoController {
         return result;
     }
 
+    @Transactional
     @PostMapping(path = "api/votar/post")
     public String votar(@RequestBody VotoDetail voto) {
 
@@ -73,7 +75,6 @@ public class VotacaoController {
                 .NomeEleitor(voto.getNomeEleitor())
                 .CpfEleitor(voto.getCpfEleitor())
                 .build();
-
         eleitorRepository.save(eleitorModel);
 
         Object id = entityManager.createQuery("SELECT MAX(IdEleitor) AS IdEleitor " +
@@ -81,15 +82,12 @@ public class VotacaoController {
 
         System.out.println("id: " + id.toString() + " class: " + id.getClass());
 
+        String query = "INSERT INTO Votos (id_Candidato, id_eleitor) VALUES(?, ?)";
 
-        VotoModel votoModel = new VotoModel();
-        votoModel.IdCandidato = voto.getIdCandidato();
-        votoModel.IdEleitor = (Integer) id;
-//        VotoModel votoModel = VotoModelBuilder.builder()
-//                .IdCandidato(voto.getIdCandidato())
-//                .IdEleitor((Integer) id)
-//                .build();
-        votoRepository.save(votoModel);
+        entityManager.createNativeQuery(query)
+                .setParameter(1, voto.getIdCandidato())
+                .setParameter(2, (Integer) id)
+                .executeUpdate();
 
         return "VOTO REALIZADO COM SUCESSO !";
     }

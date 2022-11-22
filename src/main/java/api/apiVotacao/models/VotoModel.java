@@ -14,8 +14,6 @@ public class VotoModel {
     @JoinColumn(name = "IdCandidato", nullable = false)
     public Integer IdCandidato;
 
-//    public String NomeCandidato;
-
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, targetEntity = EleitorModel.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "IdEleitor", nullable = false, referencedColumnName = "id")

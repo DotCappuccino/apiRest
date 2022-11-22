@@ -4,7 +4,7 @@ public class VotoDetail {
 
     public String NomeEleitor;
     public String CpfEleitor;
-    public Integer IdCandidato;
+    public String IdCandidato;
 
 
     public String getNomeEleitor() {
@@ -23,11 +23,11 @@ public class VotoDetail {
         CpfEleitor = cpfEleitor;
     }
 
-    public Integer getIdCandidato() {
+    public String getIdCandidato() {
         return IdCandidato;
     }
 
-    public void setIdCandidato(Integer idCandidato) {
+    public void setIdCandidato(String idCandidato) {
         IdCandidato = idCandidato;
     }
 
